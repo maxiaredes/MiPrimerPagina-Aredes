@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+
 <main class="container py-5">
 
     <div class="text-center mb-5">
@@ -11,14 +12,17 @@
     </div>
 
     <div class="row justify-content-center">
+
         <div class="col-md-6">
 
-            <form method="post" class="card p-4 shadow-sm">
+            <form method="post" class="card p-4 border-0 shadow-sm rounded-4" enctype="multipart/form-data">
+
                 {% csrf_token %}
 
                 {{ form.as_p }}
 
                 <div class="d-flex justify-content-between mt-3">
+
                     <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
                         Cancelar
                     </a>
@@ -26,12 +30,15 @@
                     <button type="submit" class="btn btn-primary">
                         Publicar
                     </button>
+
                 </div>
 
             </form>
 
         </div>
+
     </div>
 
 </main>
+
 {% endblock content %}

@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<main class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+                {% if post.imagen %}
+                <img 
+                    src="{{ post.imagen.url }}"
+                    class="img-fluid"
+                    style="max-height: 420px; object-fit: cover; width: 100%;"
+                    alt="{{ post.titulo }}"
+                >
+                {% endif %}
+
+                <div class="card-body p-4 p-md-5">
+                    <span class="badge bg-info text-dark mb-3">Destino</span>
+
+                    <h1 class="fw-bold text-primary mb-3">{{ post.titulo }}</h1>
+
+                    <p class="text-secondary small mb-4">
+                        Publicado el {{ post.fecha_publicacion|date:"d/m/Y" }}
+                    </p>
+
+                    <p class="fs-5 text-dark" style="line-height: 1.8;">
+                        {{ post.contenido }}
+                    </p>
+
+                    <div class="mt-4">
+                        <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary rounded-pill">
+                            Volver al blog
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock content %}
