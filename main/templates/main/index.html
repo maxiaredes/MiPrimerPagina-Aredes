@@ -1,0 +1,69 @@
+{% extends 'Main/base.html' %}
+
+{% block title %}
+Inicio
+{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+
+    <h1 class="display-4 fw-bold text-primary">
+        ✈ Descubrí tu próximo destino
+    </h1>
+
+    <p class="lead text-muted mt-3">
+        Bienvenido a nuestra app de viajes. Explorá destinos increíbles,
+        encontrá inspiración y empezá a planear tu próxima aventura.
+    </p>
+
+    <div class="mt-4">
+        <a href="/blog/" class="btn btn-primary btn-lg me-2">
+            Ver destinos
+        </a>
+
+        <a href="#" class="btn btn-outline-secondary btn-lg">
+            Conocer más
+        </a>
+    </div>
+
+</div>
+
+
+<div class="container pb-5">
+    <div class="row text-center g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 h-100">
+                <h3 class="text-primary">🌍 Destinos</h3>
+                <p class="text-muted">
+                    Descubrí ciudades increíbles alrededor del mundo
+                    y planificá tu próximo viaje.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 h-100">
+                <h3 class="text-primary">✈ Experiencias</h3>
+                <p class="text-muted">
+                    Encontrá recomendaciones, cultura y gastronomía
+                    de cada destino.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 p-4 h-100">
+                <h3 class="text-primary">📍 Inspiración</h3>
+                <p class="text-muted">
+                    Inspirate con historias de viaje y
+                    empezá a planear tu próxima aventura.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
