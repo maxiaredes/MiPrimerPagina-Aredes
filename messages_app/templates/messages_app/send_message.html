@@ -1,0 +1,31 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <h1 class="text-center mb-4">Enviar mensaje</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            Enviar
+                        </button>
+                        <a href="{% url 'messages_app:inbox' %}" class="btn btn-secondary">
+                            Volver
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

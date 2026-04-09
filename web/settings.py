@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #'myapp',
     'blog',
     'main',
+    'messages_app',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
+
 
 class Post(models.Model):
     class Estado(models.TextChoices):
@@ -8,7 +10,8 @@ class Post(models.Model):
         ARCHIVADO = "ARCHIVADO", "Archivado"
 
     titulo = models.CharField(max_length=200)
-    contenido = models.TextField()
+    subtitulo = models.CharField(max_length=200, default="")
+    contenido = RichTextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     imagen = models.ImageField(upload_to="posts/", null=True, blank=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

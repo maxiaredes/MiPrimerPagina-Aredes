@@ -1,0 +1,43 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h1>Bandeja de entrada</h1>
+
+    <div>
+
+        <a href="{% url 'messages_app:sent_messages' %}" class="btn btn-secondary">
+            Ver enviados
+        </a>
+
+        <a href="{% url 'messages_app:send_message' %}" class="btn btn-primary">
+            Enviar mensaje
+        </a>
+
+    </div>
+
+</div>
+
+    {% if messages %}
+        <div class="list-group">
+            {% for message in messages %}
+                <a href="{% url 'messages_app:message_detail' message.pk %}" class="list-group-item list-group-item-action">
+                    <strong>De:</strong> {{ message.sender.username }}<br>
+                    <strong>Fecha:</strong> {{ message.created_at|date:"d/m/Y H:i" }}<br>
+                    <strong>Mensaje:</strong> {{ message.content|truncatewords:12 }}
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No tenés mensajes todavía.
+        </div>
+    {% endif %}
+
+</main>
+
+{% endblock %}
