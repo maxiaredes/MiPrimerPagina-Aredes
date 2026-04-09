@@ -120,6 +120,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 LOGIN_URL = "/admin/login/"
+LOGIN_REDIRECT_URL = "main:perfil"
+LOGOUT_REDIRECT_URL = "main:index"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

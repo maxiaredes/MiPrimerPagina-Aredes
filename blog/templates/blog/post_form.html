@@ -1,0 +1,39 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    {% if object %}
+        <h1 class="text-center mb-4">Editar publicación</h1>
+    {% else %}
+        <h1 class="text-center mb-4">Crear publicación</h1>
+    {% endif %}
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <form method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="btn btn-success">
+                    Guardar
+                </button>
+
+                <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
+                    Cancelar
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

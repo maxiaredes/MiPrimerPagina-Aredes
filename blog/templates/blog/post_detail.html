@@ -1,46 +1,49 @@
-{% extends "blog/base.html" %}
+{% extends "Main/base.html" %}
 
 {% block content %}
+
 <main class="container py-5">
 
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
+    <h1 class="text-center mb-5">
+        Vista en detalle de una publicación
+    </h1>
 
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <ul class="list-unstyled fs-5">
 
-                {% if post.imagen %}
-                <img 
-                    src="{{ post.imagen.url }}"
-                    class="img-fluid"
-                    style="max-height: 420px; object-fit: cover; width: 100%;"
-                    alt="{{ post.titulo }}"
-                >
-                {% endif %}
+        <li class="mb-2">
+            <strong>Título:</strong> {{ post.titulo }}
+        </li>
 
-                <div class="card-body p-4 p-md-5">
-                    <span class="badge bg-info text-dark mb-3">Destino</span>
+        <li class="mb-2">
+            <strong>Autor:</strong> {{ post.autor }}
+        </li>
 
-                    <h1 class="fw-bold text-primary mb-3">{{ post.titulo }}</h1>
+        <li class="mb-2">
+            <strong>Contenido:</strong> {{ post.contenido|safe }}
+        </li>
 
-                    <p class="text-secondary small mb-4">
-                        Publicado el {{ post.fecha_publicacion|date:"d/m/Y" }}
-                    </p>
+        <li class="mb-2">
+            <strong>Fecha de publicación:</strong>
+            {{ post.fecha_publicacion|date:"d \d\e F \d\e Y \a \l\a\s H:i" }}
+        </li>
 
-                    <p class="fs-5 text-dark" style="line-height: 1.8;">
-                        {{ post.contenido }}
-                    </p>
+        <li class="mb-2">
+            <strong>Estado:</strong>
 
-                    <div class="mt-4">
-                        <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary rounded-pill">
-                            Volver al blog
-                        </a>
-                    </div>
-                </div>
+            {% if post.estado == "B" %}
+                Borrador
+            {% else %}
+                Publicado
+            {% endif %}
 
-            </div>
+        </li>
 
-        </div>
-    </div>
+    </ul>
+
+    <a href="{% url 'blog:post_list' %}">
+        Volver
+    </a>
 
 </main>
-{% endblock content %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <h1 class="text-center mb-5">Mi Perfil</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-4 text-center">
+
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Avatar"
+                         class="rounded-circle mx-auto mb-3"
+                         style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <p class="text-muted">No hay avatar cargado.</p>
+                {% endif %}
+
+                <p><strong>Usuario:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+                <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+                <p><strong>Biografía:</strong> {{ profile.bio }}</p>
+
+                <div class="mt-3 d-grid gap-2">
+                    <a href="{% url 'main:editar_perfil' %}" class="btn btn-warning">
+                        Editar perfil
+                    </a>
+                    <a href="{% url 'password_change' %}" class="btn btn-secondary">
+                        Cambiar contraseña
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

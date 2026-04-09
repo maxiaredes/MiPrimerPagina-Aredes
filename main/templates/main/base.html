@@ -4,51 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Blog de Viajes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/blog/">✈ Mi Agencia</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'blog:post_list' %}">✈ Mi Agencia</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarViajes" aria-controls="navbarViajes" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarViajes">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarViajes">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarViajes">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:index' %}">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:about' %}">Sobre mí</a>
+                </li>
+
+                {% if user.is_authenticated %}
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:index' %}">Inicio</a>
+                        <a class="nav-link" href="{% url 'main:perfil' %}">Perfil</a>
                     </li>
+
+                    {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a>
+                        <a class="nav-link" href="/admin/">Admin</a>
                     </li>
-                </ul>
-            </div>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link text-white text-decoration-none p-0 border-0">
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:signup' %}">Registrarse</a>
+                    </li>
+
+                {% endif %}
+
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <header class="bg-white py-5 border-bottom">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold text-primary">Descubrí destinos increíbles</h1>
-            <p class="lead text-muted mt-3">
-                Inspirate con nuestras publicaciones y encontrá tu próxima aventura.
-            </p>
-            <a href="/blog/" class="btn btn-primary btn-lg mt-3">Explorar publicaciones</a>
-        </div>
-    </header>
+<header class="bg-white py-5 border-bottom">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold text-primary">Descubrí destinos increíbles</h1>
+        <p class="lead text-muted mt-3">
+            Inspirate con nuestras publicaciones y encontrá tu próxima aventura.
+        </p>
+        <a href="{% url 'blog:post_list' %}" class="btn btn-primary btn-lg mt-3">Explorar publicaciones</a>
+    </div>
+</header>
 
-    {% block content %}
-    {% endblock %}
+{% block content %}
+{% endblock %}
 
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-1 fw-semibold">Mi Agencia de Viajes</p>
-            <p class="mb-0 small text-light">Explorá el mundo con experiencias únicas.</p>
-        </div>
-    </footer>
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+        <p class="mb-1 fw-semibold">Mi Agencia de Viajes</p>
+        <p class="mb-0 small text-light">Explorá el mundo con experiencias únicas.</p>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

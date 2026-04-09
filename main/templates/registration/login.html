@@ -1,0 +1,35 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <h1 class="text-center mb-5">Iniciar sesión</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm rounded-4 p-4">
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Ingresar
+                    </button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <p class="mb-0">
+                        ¿No tenés cuenta?
+                        <a href="{% url 'main:signup' %}">Registrarse</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

@@ -1,40 +1,36 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
-from .forms import PostForm
 
 
-def post_list(request):
-    busqueda = request.GET.get("busqueda", "")
-    posts = Post.objects.all()
-
-    if busqueda:
-        posts = posts.filter(
-            Q(titulo__icontains=busqueda) | Q(contenido__icontains=busqueda)
-        )
-
-    return render(request, "blog/post_list.html", {
-        "posts": posts,
-        "search_query": busqueda,
-    })
+class PostListView(ListView):
+    model = Post
+    template_name = "blog/post_list.html"
+    context_object_name = "posts"
 
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, "blog/post_detail.html", {"post": post})
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
 
 
-@login_required
-def post_create(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.autor = request.user
-            post.save()
-            return redirect("blog:post_list")
-    else:
-        form = PostForm()
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    template_name = "blog/post_form.html"
+    fields = ["titulo", "contenido", "imagen", "estado", "autor"]
+    success_url = reverse_lazy("blog:post_list")
 
-    return render(request, "blog/post_create.html", {"form": form})
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    template_name = "blog/post_form.html"
+    fields = ["titulo", "contenido", "imagen", "estado", "autor"]
+    success_url = reverse_lazy("blog:post_list")
+
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "blog/post_confirm_delete.html"
+    success_url = reverse_lazy("blog:post_list")

@@ -1,0 +1,38 @@
+{% extends "Main/base.html" %}
+
+{% block content %}
+
+<main class="container py-5">
+
+    <h1 class="text-center mb-5">Editar Perfil</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-4">
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <h4 class="mb-3">Datos de usuario</h4>
+                    {{ user_form.as_p }}
+
+                    <h4 class="mt-4 mb-3">Datos del perfil</h4>
+                    {{ profile_form.as_p }}
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            Guardar cambios
+                        </button>
+                        <a href="{% url 'main:perfil' %}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}
