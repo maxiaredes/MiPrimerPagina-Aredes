@@ -19,14 +19,18 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "blog/post_form.html"
-    fields = ["titulo", "contenido", "imagen", "estado", "autor"]
+    fields = ["titulo", "subtitulo", "contenido", "imagen", "estado"]
     success_url = reverse_lazy("blog:post_list")
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = "blog/post_form.html"
-    fields = ["titulo", "contenido", "imagen", "estado", "autor"]
+    fields = ["titulo", "subtitulo", "contenido", "imagen", "estado"]
     success_url = reverse_lazy("blog:post_list")
 
 
