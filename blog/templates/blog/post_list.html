@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
 
-        {% if user.is_authenticated %}
+        {% if user.is_staff %}
         <a href="{% url 'blog:post_create' %}" class="btn btn-primary">
             Crear publicación
         </a>
@@ -31,10 +31,11 @@
         <h2 class="fw-bold">Lista de Publicaciones</h2>
     </div>
 
+    {% if posts %}
+
     <div class="row g-4">
 
         {% for post in posts %}
-
         <div class="col-12 col-md-6 col-lg-4">
 
             <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
@@ -84,14 +85,13 @@
                 </div>
 
                 <div class="card-footer bg-white border-0">
-
                     <div class="d-grid gap-2">
 
                         <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-info">
-                            Detalle
+                            Leer más
                         </a>
 
-                        {% if user.is_authenticated %}
+                        {% if user.is_staff %}
                         <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-warning">
                             Cambiar
                         </a>
@@ -102,24 +102,47 @@
                         {% endif %}
 
                     </div>
-
                 </div>
 
             </div>
 
         </div>
-
-        {% empty %}
-
-        <div class="col-12">
-            <div class="alert alert-info text-center">
-                No hay páginas aún
-            </div>
-        </div>
-
         {% endfor %}
 
+        {% if not user.is_staff %}
+            {% for i in ""|ljust:placeholders %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm rounded-4 border-0 bg-light text-center d-flex justify-content-center align-items-center p-4">
+                    <div>
+                        <div style="font-size: 40px;">✈️</div>
+                        <h5 class="text-muted mt-3">Próximamente nuevos destinos</h5>
+                        <button class="btn btn-outline-secondary mt-2" disabled>Próximamente</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
     </div>
+
+    {% else %}
+
+    <div class="col-12">
+        <div class="alert alert-info text-center shadow-sm rounded-4 p-4">
+            <h4 class="alert-heading">No hay páginas aún</h4>
+
+            {% if user.is_staff %}
+            <p class="mb-3">Creá la primera publicación para comenzar.</p>
+            <a href="{% url 'blog:post_create' %}" class="btn btn-primary">
+                Crear publicación
+            </a>
+            {% else %}
+            <p class="mb-0">Todavía no hay destinos publicados.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% endif %}
 
 </main>
 

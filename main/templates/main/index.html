@@ -1,69 +1,114 @@
-{% extends 'Main/base.html' %}
-
-{% block title %}
-Inicio
-{% endblock title %}
+{% extends "Main/base.html" %}
+{% load static %}
 
 {% block content %}
 
-<div class="container py-5 text-center">
+<main class="container-fluid px-0">
+    <div class="row g-0 min-vh-100">
 
-    <h1 class="display-4 fw-bold text-primary">
-        ✈ Descubrí tu próximo destino
-    </h1>
+        <!-- LADO IZQUIERDO: imágenes -->
+        <div class="col-lg-7 d-none d-lg-block position-relative">
+            <div id="carouselViajes" class="carousel slide h-100" data-bs-ride="carousel">
 
-    <p class="lead text-muted mt-3">
-        Bienvenido a nuestra app de viajes. Explorá destinos increíbles,
-        encontrá inspiración y empezá a planear tu próxima aventura.
-    </p>
+                <div class="carousel-inner h-100">
 
-    <div class="mt-4">
-        <a href="/blog/" class="btn btn-primary btn-lg me-2">
-            Ver destinos
-        </a>
+                    <div class="carousel-item active h-100">
+                        <img src="{% static 'main/img/playa.jpg' %}"
+                             class="d-block w-100 h-100"
+                             style="object-fit: cover;"
+                             alt="Playa">
+                    </div>
 
-        <a href="#" class="btn btn-outline-secondary btn-lg">
-            Conocer más
-        </a>
+                    <div class="carousel-item h-100">
+                        <img src="{% static 'main/img/montanas.jpg' %}"
+                             class="d-block w-100 h-100"
+                             style="object-fit: cover;"
+                             alt="Montañas">
+                    </div>
+
+                    <div class="carousel-item h-100">
+                        <img src="{% static 'main/img/ciudad.jpg' %}"
+                             class="d-block w-100 h-100"
+                             style="object-fit: cover;"
+                             alt="Ciudad">
+                    </div>
+
+                </div>
+
+                <div class="position-absolute top-50 start-50 translate-middle text-white text-center px-4" style="z-index: 10;">
+                    <h1 class="display-4 fw-bold">Descubrí tu próximo destino</h1>
+                    <p class="lead">Viajes, experiencias y recuerdos que empiezan acá.</p>
+                </div>
+
+                <div class="position-absolute top-0 start-0 w-100 h-100"
+                     style="background: rgba(0,0,0,0.35); z-index: 5;"></div>
+
+            </div>
+        </div>
+
+        <!-- LADO DERECHO: login / registro -->
+        <div class="col-lg-5 d-flex align-items-center justify-content-center bg-white">
+            <div class="w-100" style="max-width: 420px; padding: 2rem;">
+
+                {% if user.is_authenticated %}
+
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-primary">
+                            ¡Bienvenido, {{ user.username|title }}!
+                        </h2>
+
+                        <p class="text-muted">
+                            Comenzá a descubrir experiencias únicas alrededor del mundo.
+                        </p>
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <a href="{% url 'blog:post_list' %}" class="btn btn-primary btn-lg rounded-pill">
+                            Explora nuestros destinos
+                        </a>
+
+                        <a href="{% url 'main:perfil' %}" class="btn btn-outline-primary btn-lg rounded-pill">
+                            Ver perfil
+                        </a>
+
+                        <a href="{% url 'messages_app:inbox' %}" class="btn btn-outline-secondary btn-lg rounded-pill">
+                            Ver mensajes
+                        </a>
+                    </div>
+
+                {% else %}
+
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-primary">Bienvenido a Mi Agencia</h2>
+                        <p class="text-muted">Iniciá sesión o creá tu cuenta para comenzar tu aventura.</p>
+                    </div>
+
+                    <div class="card shadow-sm border-0 rounded-4 p-4">
+                        <h4 class="text-center mb-3">Acceso rápido</h4>
+
+                        <div class="d-grid gap-3">
+                            <a href="{% url 'main:login' %}" class="btn btn-primary btn-lg rounded-pill">
+                                Iniciar sesión
+                            </a>
+
+                            <a href="{% url 'main:signup' %}" class="btn btn-outline-primary btn-lg rounded-pill">
+                                Registrarse
+                            </a>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <p class="text-center text-muted mb-0">
+                            Explorá destinos, administrá tu perfil y conectate con otros usuarios.
+                        </p>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+
     </div>
+</main>
 
-</div>
-
-
-<div class="container pb-5">
-    <div class="row text-center g-4">
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 p-4 h-100">
-                <h3 class="text-primary">🌍 Destinos</h3>
-                <p class="text-muted">
-                    Descubrí ciudades increíbles alrededor del mundo
-                    y planificá tu próximo viaje.
-                </p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 p-4 h-100">
-                <h3 class="text-primary">✈ Experiencias</h3>
-                <p class="text-muted">
-                    Encontrá recomendaciones, cultura y gastronomía
-                    de cada destino.
-                </p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 p-4 h-100">
-                <h3 class="text-primary">📍 Inspiración</h3>
-                <p class="text-muted">
-                    Inspirate con historias de viaje y
-                    empezá a planear tu próxima aventura.
-                </p>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-{% endblock content %}
+{% endblock %}
